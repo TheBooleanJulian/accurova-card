@@ -18,6 +18,20 @@ ALLOWED_EVENTS = {"pageview", "whatsapp_click"}
 security = HTTPBasic()
 
 
+@app.middleware("http")
+async def _no_store(request: Request, call_next):
+    """
+    Cloudflare sits in front of Zeabur and applies a zone-level default
+    Cache-Control (max-age=14400) even when the origin sends none —
+    confirmed live twice already on this same domain (a stale homepage,
+    then a stale stylesheet missing a new CSS rule). This is a low-traffic
+    card site; a push should always show up immediately.
+    """
+    response = await call_next(request)
+    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate"
+    return response
+
+
 @app.on_event("startup")
 def _startup() -> None:
     init_db()
