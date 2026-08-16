@@ -1,0 +1,220 @@
+/* Accurova design system — light, editorial-premium, mobile-first */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --bg: #ffffff;
+  --bg-2: #f6f7f8;
+  --teal: #00a89e;
+  --teal-ink: #00655f;
+  --gold: #b9860a;
+  --ink: #0b0d12;
+  --ink-dim: #4b5563;
+  --ink-faint: #8a8f98;
+  --hairline: rgba(10, 14, 20, 0.1);
+  --font-head: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: radial-gradient(circle at 50% 0%, var(--bg-2) 0%, var(--bg) 60%);
+  min-height: 100vh;
+}
+
+.wrap {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 24px 20px 60px;
+}
+
+.brand-header {
+  margin: 0 0 4px;
+}
+
+.brand-logo {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hero-tagline {
+  font-family: var(--font-head);
+  font-size: 14px;
+  color: var(--ink-dim);
+  margin: 2px 0 6px;
+}
+
+.hero-rating {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-dim);
+  margin: 0;
+}
+.hero-rating .stars { color: var(--gold); letter-spacing: 1px; }
+
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+.badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--ink-dim);
+  border: 1px solid var(--ink-faint);
+  padding: 4px 8px;
+  border-radius: 3px;
+  text-decoration: none;
+  display: inline-block;
+}
+a.badge {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+a.badge:active { border-color: var(--teal); color: var(--teal-ink); }
+
+.hairline {
+  border: none;
+  border-top: 1px solid var(--hairline);
+  margin: 20px 0;
+}
+
+.card {
+  border: 1px solid rgba(0, 168, 158, 0.35);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 14px;
+  background: rgba(0, 168, 158, 0.04);
+  box-shadow: 0 1px 2px rgba(10, 14, 20, 0.04);
+}
+
+.card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  margin: 0 0 12px;
+  background: rgba(0, 168, 158, 0.12);
+  color: var(--teal-ink);
+}
+.card-icon svg { width: 18px; height: 18px; }
+
+.card-title {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 16px;
+  margin: 0 0 6px;
+}
+
+.card-desc {
+  font-size: 13px;
+  color: var(--ink-dim);
+  margin: 0 0 14px;
+  line-height: 1.5;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 15px;
+  padding: 15px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  min-height: 48px;
+}
+.btn + .btn { margin-top: 8px; }
+
+.btn-primary {
+  background: var(--teal);
+  color: #ffffff;
+}
+.btn-primary:active { opacity: 0.85; }
+
+.soft-sell-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 12px;
+}
+.soft-sell-list li {
+  font-size: 13px;
+  color: var(--ink-dim);
+  padding-left: 14px;
+  position: relative;
+}
+.soft-sell-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--teal);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.contact-card {
+  display: block;
+  text-decoration: none;
+  color: var(--ink);
+  text-align: center;
+  padding: 18px 12px;
+  cursor: pointer;
+}
+.contact-card .card-icon { margin: 0 auto 10px; }
+.contact-card .card-title { font-size: 14px; margin: 0; }
+
+.section-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 12px;
+}
+
+footer {
+  text-align: center;
+  margin-top: 32px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ink-faint);
+  letter-spacing: 0.05em;
+  line-height: 1.8;
+}
+footer a {
+  color: var(--ink-faint);
+}
+footer a:hover, footer a:active {
+  color: var(--teal-ink);
+}
