@@ -49,6 +49,37 @@ body {
   height: auto;
 }
 
+.intro-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 14px 0;
+}
+.avatar-placeholder {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 168, 158, 0.1);
+  border: 1px solid rgba(0, 168, 158, 0.3);
+  color: var(--teal-ink);
+}
+.avatar-placeholder svg { width: 26px; height: 26px; }
+.intro-name {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 15px;
+  margin: 0;
+}
+.intro-role {
+  font-size: 12px;
+  color: var(--ink-dim);
+  margin: 2px 0 0;
+}
+
 .hero-tagline {
   font-family: var(--font-head);
   font-size: 14px;
@@ -99,6 +130,59 @@ a.badge:active { border-color: var(--teal); color: var(--teal-ink); }
   border: none;
   border-top: 1px solid var(--hairline);
   margin: 20px 0;
+}
+
+.hero-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.hero-thumb {
+  aspect-ratio: 4 / 3;
+  border-radius: 8px;
+  border: 1px dashed var(--hairline);
+  background: var(--bg-2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--ink-faint);
+  overflow: hidden;
+}
+.hero-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero-thumb svg { width: 20px; height: 20px; }
+.hero-thumb-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.testimonial {
+  border-left: 2px solid var(--gold);
+  padding: 2px 0 2px 14px;
+  margin: 0 0 14px;
+}
+.testimonial p {
+  font-size: 13px;
+  font-style: italic;
+  color: var(--ink-dim);
+  margin: 0 0 4px;
+  line-height: 1.5;
+}
+.testimonial cite {
+  display: block;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 11px;
+  color: var(--ink-faint);
 }
 
 .card {
@@ -159,6 +243,18 @@ a.badge:active { border-color: var(--teal); color: var(--teal-ink); }
   color: #ffffff;
 }
 .btn-primary:active { opacity: 0.85; }
+
+.tel-link {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-dim);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.tel-link:active { color: var(--teal-ink); }
 
 .soft-sell-list {
   list-style: none;

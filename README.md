@@ -2,7 +2,7 @@
 
 # accurova-card
 
-**A static digital business card / landing page for Accurova.**
+**A digital business card / landing page for Accurova, scanned mostly via QR code off a physical card.**
 
 </div>
 
@@ -10,22 +10,32 @@
 
 ## What it does
 
-A single mobile-first page with the Accurova logo, business rating, award/press badges, a soft-sell card for corporate event photography with a "Request a Quote" CTA to WhatsApp, and a contact grid (WhatsApp, Portfolio, LinkedIn, Save Contact vCard).
+A single mobile-first page (`public/index.html`) with the Accurova logo, a headshot/name intro, business rating, award/press badges, a hero shot strip, a testimonial, a soft-sell card for corporate event photography with a "Request a Quote" CTA to WhatsApp plus a `tel:` fallback, and a contact grid (WhatsApp, Portfolio, LinkedIn, Save Contact vCard, Instagram).
 
-No backend, no database — pure static HTML/CSS served by nginx.
+Served by a small FastAPI app (`app/main.py`) that mounts `public/` as static files and adds two endpoints:
 
-## Logo
+- `POST /api/track` — records a `pageview` or `whatsapp_click` event (no cookies, no personal data — just an event name + timestamp)
+- `GET /stats` — HTTP Basic-auth protected page showing pageview/click counts and click-through rate, all-time / 7d / 30d
 
-Drop the logo file in as `assets/accurova-logo.png` (referenced by `index.html`).
+Data lives in Postgres (Zeabur add-on) — see `app/db.py`.
+
+## Placeholders to replace
+
+A few things are currently placeholders, marked with `<!-- PLACEHOLDER -->` comments in `public/index.html`:
+
+- **Headshot** — swap `.avatar-placeholder` for `<img src="assets/headshot.jpg" ...>`
+- **Hero shots** — swap each `.hero-thumb`'s contents for `<img src="assets/hero-event.jpg" loading="lazy" ...>` (and `hero-portrait.jpg` / `hero-product.jpg`)
+- **Testimonial** — replace the placeholder quote/attribution with a real one
+- **Instagram** — the contact-grid tile links to `#` until the real handle is confirmed
 
 ## Local preview
 
-Open `index.html` directly in a browser, or serve the folder with any static file server, e.g.:
-
 ```
-npx serve .
+cp .env.example .env   # fill in a real DATABASE_URL
+pip install -r requirements.txt
+uvicorn app.main:app --reload --port 8080
 ```
 
 ## Deploy
 
-Builds via the included `Dockerfile` (nginx:alpine). Deployed on Zeabur.
+Builds via the included `Dockerfile` (Python 3.12 + uvicorn). Deployed on Zeabur, with a Postgres add-on providing `DATABASE_URL`. GitHub → Zeabur, `main` triggers the deploy; changes flow `feature/* → dev → main`.
