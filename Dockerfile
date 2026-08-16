@@ -1,6 +1,8 @@
-FROM nginx:alpine
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY index.html contact.vcf /usr/share/nginx/html/
-COPY css /usr/share/nginx/html/css
-COPY assets /usr/share/nginx/html/assets
+FROM python:3.12-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY app ./app
+COPY public ./public
 EXPOSE 8080
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
