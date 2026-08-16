@@ -69,6 +69,7 @@ body {
   flex-wrap: wrap;
   gap: 6px;
   margin-top: 10px;
+  margin-bottom: 24px;
 }
 .badge {
   font-family: var(--font-mono);
