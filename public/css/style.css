@@ -165,24 +165,70 @@ a.badge:active { border-color: var(--teal); color: var(--teal-ink); }
   text-transform: uppercase;
 }
 
-.testimonial {
+.testimonials {
+  margin: 0 0 20px;
+}
+
+.testimonial-carousel {
+  overflow: hidden;
+}
+
+.testimonial-track {
+  display: flex;
+  transition: transform 0.35s ease;
+}
+
+.testimonial-slide {
+  flex: 0 0 100%;
+  min-width: 0;
   border-left: 2px solid var(--gold);
   padding: 2px 0 2px 14px;
-  margin: 0 0 14px;
+  margin: 0;
 }
-.testimonial p {
+.testimonial-slide p {
   font-size: 13px;
   font-style: italic;
   color: var(--ink-dim);
   margin: 0 0 4px;
   line-height: 1.5;
 }
-.testimonial cite {
+.testimonial-slide cite {
   display: block;
   font-family: var(--font-mono);
   font-style: normal;
   font-size: 11px;
   color: var(--ink-faint);
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background: var(--hairline);
+  cursor: pointer;
+}
+.dot.is-active {
+  background: var(--teal);
+}
+
+.review-stat {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-dim);
+  text-align: center;
+  margin: 10px 0 0;
+}
+.review-stat .stars {
+  color: var(--gold);
+  letter-spacing: 1px;
 }
 
 .card {
