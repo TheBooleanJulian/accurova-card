@@ -68,6 +68,14 @@ body {
   color: var(--teal-ink);
 }
 .avatar-placeholder svg { width: 26px; height: 26px; }
+.avatar-photo {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+  border: 1px solid rgba(0, 168, 158, 0.3);
+}
 .intro-name {
   font-family: var(--font-head);
   font-weight: 600;
@@ -139,26 +147,34 @@ a.badge:active { border-color: var(--teal); color: var(--teal-ink); }
   margin-bottom: 14px;
 }
 .hero-thumb {
+  position: relative;
   aspect-ratio: 4 / 3;
   border-radius: 8px;
-  border: 1px dashed var(--hairline);
+  border: 1px solid var(--hairline);
   background: var(--bg-2);
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  gap: 6px;
   color: var(--ink-faint);
   overflow: hidden;
 }
 .hero-thumb img {
   display: block;
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 .hero-thumb svg { width: 20px; height: 20px; }
 .hero-thumb-label {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 12px 4px 6px;
+  text-align: center;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
+  color: #fff;
   font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 0.08em;
