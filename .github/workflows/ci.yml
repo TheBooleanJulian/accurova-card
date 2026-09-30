@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [feature/**, dev, main]
+  pull_request:
+    branches: [dev, main]
+
+jobs:
+  build-check:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: accurova_card
+          POSTGRES_PASSWORD: accurova_card
+          POSTGRES_DB: accurova_card
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Initialize DB (schema sanity check)
+        env:
+          DATABASE_URL: postgresql://accurova_card:accurova_card@localhost:5432/accurova_card
+        run: python -c "from app.db import init_db; init_db(); print('DB init OK')"
+
+      - name: Import app (catches wiring/syntax errors)
+        env:
+          DATABASE_URL: postgresql://accurova_card:accurova_card@localhost:5432/accurova_card
+        run: python -c "from app.main import app; print('app imports cleanly')"
