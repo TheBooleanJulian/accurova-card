@@ -21,7 +21,8 @@ Served by a small FastAPI app (`app/main.py`) that mounts `public/` as static fi
 - `POST /api/track` — records a `pageview` or `whatsapp_click` event (no cookies, no personal data — just an event name + timestamp)
 - `GET /stats` — HTTP Basic-auth protected page showing pageview/click counts and click-through rate, all-time / 7d / 30d
 
-Data lives in Postgres (Zeabur add-on) — see `app/db.py`.
+Production runs on a Cloudflare Worker (`worker.js`); data lives in the `accurova_card` schema of the shared Supabase
+project (migration in `thebooleanjulian-db`). `app/` is the original FastAPI version, kept for local runs.
 
 ## Features
 
@@ -37,10 +38,11 @@ Data lives in Postgres (Zeabur add-on) — see `app/db.py`.
 
 | Layer | Choice |
 |---|---|
-| Backend | FastAPI (Python 3.12) served by Uvicorn |
-| Frontend | Static HTML/CSS in `public/` |
-| Database | PostgreSQL (Zeabur add-on), via `psycopg` |
-| Deployment | Docker → Zeabur |
+| Backend (production) | Cloudflare Worker (`worker.js`), Postgres via Hyperdrive + `thebooleanjulian-bot-core/db` |
+| Backend (local) | FastAPI (Python 3.12) served by Uvicorn (`app/`) |
+| Frontend | Static HTML/CSS in `public/` (`public/_headers` sets no-store) |
+| Database | Supabase Postgres, schema `accurova_card` |
+| Deployment | Cloudflare Workers (`wrangler.jsonc`) |
 
 ## Screenshots
 
@@ -58,7 +60,9 @@ uvicorn app.main:app --reload --port 8080
 
 ## Deploy
 
-Builds via the included `Dockerfile` (Python 3.12 + Uvicorn). Deployed on Zeabur, with a Postgres add-on providing `DATABASE_URL`. GitHub → Zeabur, `main` triggers the deploy; changes flow `feature/* → dev → main`.
+`npm install && npx wrangler deploy`. Secrets: `STATS_USERNAME`, `STATS_PASSWORD` (`npx wrangler secret put …`; no
+defaults, so `/stats` stays locked until both are set). The Hyperdrive binding and the `card.accurova.com` route are in
+`wrangler.jsonc`. Tests: `npm test`. Changes flow `feature/* → dev → main`.
 
 ## Status / Roadmap
 
@@ -69,6 +73,7 @@ Builds via the included `Dockerfile` (Python 3.12 + Uvicorn). Deployed on Zeabur
 
 ## Changelog
 
+- **2026-11-03** — Moved off Zeabur: Cloudflare Worker + Supabase schema `accurova_card`; same endpoints and stats page, no default stats credentials
 - **2026-08-23** — Filled headshot and hero-strip placeholders from accurova.com; added testimonial carousel and confirmed Instagram link
 - **2026-08-17** — Initial release: FastAPI-served digital business card with logo, badges, analytics tracking, and a protected stats page
 
