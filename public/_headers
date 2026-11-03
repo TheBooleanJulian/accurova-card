@@ -1,0 +1,4 @@
+# Same as the old FastAPI middleware: Cloudflare's zone default caches for 4 h otherwise, and a push should show up
+# immediately on this low-traffic card site.
+/*
+  Cache-Control: no-store, no-cache, must-revalidate

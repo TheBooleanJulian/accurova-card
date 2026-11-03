@@ -1,0 +1,12 @@
+{
+  "name": "accurova-card",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "deploy": "npx wrangler deploy"
+  },
+  "dependencies": {
+    "thebooleanjulian-bot-core": "github:TheBooleanJulian/thebooleanjulian-bot-core#main"
+  }
+}
